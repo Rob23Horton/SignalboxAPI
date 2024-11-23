@@ -1,6 +1,9 @@
-﻿using Signalbox.Shared.Models;
+﻿using MySqlConnector;
+using Shared.Models;
+using Signalbox.Shared.Models;
 using SignalboxAPI.Interfaces;
 using SignalboxAPI.Services;
+using System.Linq;
 
 namespace SignalboxAPI.Repositories
 {
@@ -13,16 +16,32 @@ namespace SignalboxAPI.Repositories
 			this._databaseConnector = databaseConnector;
 		}
 
+
 		public User GetUserDetailsFromId(int userId)
 		{
-			throw new NotImplementedException();
-			return new User();
+			List<User> users = _databaseConnector.GetData<User>($"SELECT * FROM tblUser WHERE UserId = '{userId}';");
+
+			if (users.Count() == 0)
+			{
+				throw new Exception();
+			}
+
+			return users[0];
 		}
+
 
 		public bool UserInGroup(int userId, int groupId)
 		{
-			throw new NotImplementedException();
-			return false;
+			List<UserGroup> usersGroups = _databaseConnector.GetData<UserGroup>($"SELECT * FROM tblUserGroup WHERE UserCode = '{userId}' AND GroupCode = '{groupId}';");
+
+			if (usersGroups.Count() > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 	}
 }
