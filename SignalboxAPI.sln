@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalboxAPI", "SignalboxAP
 		{52AB4436-A7A8-473A-A658-3ABFE3231525} = {52AB4436-A7A8-473A-A658-3ABFE3231525}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signalbox.Shared", "Signalbox.Shared\Signalbox.Shared.csproj", "{52AB4436-A7A8-473A-A658-3ABFE3231525}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Signalbox.Shared", "Shared\Shared.csproj", "{52AB4436-A7A8-473A-A658-3ABFE3231525}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
