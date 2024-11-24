@@ -1,6 +1,7 @@
 ﻿using MySqlConnector;
 using Shared.Models;
 using Signalbox.Shared.Models;
+using SignalboxAPI.DatabaseModels;
 using SignalboxAPI.Interfaces;
 using SignalboxAPI.Services;
 using System.Linq;
@@ -16,10 +17,13 @@ namespace SignalboxAPI.Repositories
 			this._databaseConnector = databaseConnector;
 		}
 
-
 		public User GetUserDetailsFromId(int userId)
 		{
-			List<User> users = _databaseConnector.GetData<User>($"SELECT * FROM tblUser WHERE UserId = '{userId}';");
+			SqlRequest userRequest = new SqlRequest("tblUser");
+			SqlData userIdData = new SqlData("tblUser", "UserId", userId);
+			userRequest.RequestValues.Add(userIdData);
+
+			List<User> users = _databaseConnector.SelectData<User>(userRequest);
 
 			if (users.Count() == 0)
 			{
@@ -32,7 +36,16 @@ namespace SignalboxAPI.Repositories
 
 		public bool UserInGroup(int userId, int groupId)
 		{
-			List<UserGroup> usersGroups = _databaseConnector.GetData<UserGroup>($"SELECT * FROM tblUserGroup WHERE UserCode = '{userId}' AND GroupCode = '{groupId}';");
+
+			SqlRequest request = new SqlRequest("tblUserGroup");
+
+			SqlData userCode = new SqlData("tblUserGroup", "UserCode", userId);
+			request.RequestValues.Add(userCode);
+
+			SqlData groupCode = new SqlData("tblUserGroup", "GroupCode", groupId);
+			request.RequestValues.Add(groupCode);
+
+			List<UserGroup> usersGroups = _databaseConnector.SelectData<UserGroup>(request);
 
 			if (usersGroups.Count() > 0)
 			{
