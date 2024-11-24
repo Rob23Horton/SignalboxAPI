@@ -17,6 +17,7 @@ builder.Services.AddSingleton<IDatabaseConnector, DatabaseConnector>();
 //Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IGroupRepository, GroupRepository>();
 
 var app = builder.Build();
 
