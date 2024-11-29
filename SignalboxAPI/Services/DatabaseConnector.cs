@@ -90,7 +90,7 @@ namespace SignalboxAPI.Services
 					}
 					else if (where.Value is bool boolVal)
 					{
-						query += $"{(boolVal ? '1' : '0')} AND ";
+						query += $"b'{(boolVal ? '1' : '0')}' AND ";
 					}
 				}
 
@@ -116,7 +116,14 @@ namespace SignalboxAPI.Services
 				{
 					try
 					{
-						currentPropertyInfo.SetValue(item, dataReader[currentPropertyInfo.Name]);
+						if (currentPropertyInfo.PropertyType == typeof(bool))
+						{
+							currentPropertyInfo.SetValue(item, dataReader.GetBoolean(currentPropertyInfo.Name));
+						}
+						else
+						{
+							currentPropertyInfo.SetValue(item, dataReader[currentPropertyInfo.Name]);
+						}
 					}
 					catch
 					{
@@ -182,7 +189,7 @@ namespace SignalboxAPI.Services
 				}
 				else if (requestData.Value is bool boolVal)
 				{
-					values += $"{(boolVal ? '1' : '0')}, ";
+					values += $"b'{(boolVal ? '1' : '0')}', ";
 				}
 			}
 

@@ -8,6 +8,6 @@ namespace Signalbox.Shared.Models
 {
 	public class GroupTasks : Group
 	{
-		public List<Task> Tasks { get; set; }
+		public List<UserTask> Tasks { get; set; }
 	}
 }
